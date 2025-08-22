@@ -25,5 +25,6 @@ class Todo(db.Model):
     done: Mapped[bool] = mapped_collumn(Boolean, default=False)
     created_at: Mapped[datetime] = mapped_collumn(default=datetime.utcnow)
     completed_at: Mapped[Optional[datetime]] = mapped_collumn(default=None)
+
     # Relationships
     owner: Mapped[User] = relationship(back_populates='todos')

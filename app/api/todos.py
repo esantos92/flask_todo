@@ -4,10 +4,10 @@ from app.repositories.todo_repo import TodoRepository
 from app.services.todo_service import TodoService
 from app.domain.schemas import TodoIn
 
-bp = Blueprint('todos', __name__)
+todos_bp = Blueprint('todos', __name__)
 svc = TodoService(TodoRepository())
 
-@bp.get('/')
+@todos_bp.get('/')
 @jwt_required()
 def list_todos():
     user_id = get_jwt_identity()
@@ -20,7 +20,7 @@ def list_todos():
         'completed_at': todo.completed_at.isoformat() if todo.completed_at else None
     } for todo in todos])
 
-@bp.post('/')
+@todos_bp.post('/')
 @jwt_required()
 def create_todo():
     user_id = get_jwt_identity()
@@ -28,7 +28,7 @@ def create_todo():
     todo = svc.create(user_id, data.title, data.description)
     return jsonify({'id': todo.id}), 201
 
-@bp.post('/<int:todo_id>/toggle')
+@todos_bp.post('/<int:todo_id>/toggle')
 @jwt_required()
 def toggle(todo_id: int):
     user_id = get_jwt_identity()

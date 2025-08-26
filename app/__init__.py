@@ -21,6 +21,6 @@ def create_app():
 
     # Registra blueprints
     from app.api import register_blueprints
-    app.register_blueprint(app)
+    register_blueprints(app)
 
     return app

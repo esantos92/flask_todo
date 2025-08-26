@@ -4,15 +4,15 @@ from app.repositories.user_repo import UserRepository
 from app.services.user_service import UserService
 from app.domain.schemas import RegisterIn, LoginIn
 
-bp = Blueprint('auth', __name__)
+auth_bp = Blueprint('auth', __name__)
 
-@bp.post('/register')
+@auth_bp.post('/register')
 def register():
     data = RegisterIn(**request.get_json())
     user = UserService(UserRepository()).register(data.email, data.password)
     return jsonify({'id': user.id, 'email': user.email}), 201
 
-@bp.post('/login')
+@auth_bp.post('/login')
 def login():
     data = LoginIn(**request.get_json())
     user = UserService(UserRepository()).verify_credentials(data.email, data.password)
@@ -21,7 +21,7 @@ def login():
     token = create_access_token(identity=user.id)
     return jsonify(access_token=token)
 
-@bp.get('/me')
+@auth_bp.get('/me')
 @jwt_required()
 def me():
     return jsonify({'user_id': get_jwt_identity()})

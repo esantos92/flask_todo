@@ -53,7 +53,7 @@ redis-cli:
 	docker compose exec -it redis redis-cli
 
 run:
-	@$(venv) $(dotenv) flask run --host=0.0.0.0 --port=5000
+	@$(venv) $(dotenv) flask run --host=0.0.0.0 --port=5000 --debug
 
 worker:
 	@$(venv) $(dotenv) celery -A app.tasks.celery_app.celery worker --loglevel=INFO

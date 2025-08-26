@@ -13,5 +13,8 @@ class Config:
 
     APP_PRUNE_DAYS = int(getenv('APP_PRUNE_DAYS', 30))
 
-class Dev(Config): ... # Os três pontos (...) faz a mesma função do pass
-class Prod(Config): ...
+class Dev(Config): 
+    pass
+
+class Prod(Config): 
+    pass

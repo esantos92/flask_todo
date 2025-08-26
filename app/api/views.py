@@ -11,3 +11,8 @@ def home():
 def home_alt():
     """Rota alternativa para a página inicial"""
     return render_template('home.html')
+
+@views_bp.route('/dashboard')
+def dashboard():
+    """Rota para o dashboard do usuário"""
+    return render_template('dashboard.html')

@@ -18,10 +18,11 @@ def login():
     user = UserService(UserRepository()).verify_credentials(data.email, data.password)
     if not user:
         return jsonify({"msg": "Bad email or password"}), 401
-    token = create_access_token(identity=user.id)
+    token = create_access_token(identity=str(user.id))  # Converter para string
     return jsonify(access_token=token)
 
 @auth_bp.get('/me')
 @jwt_required()
 def me():
-    return jsonify({'user_id': get_jwt_identity()})
+    user_id = get_jwt_identity()
+    return jsonify({'user_id': int(user_id)})
